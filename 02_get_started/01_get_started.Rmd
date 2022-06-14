@@ -1,0 +1,70 @@
+---
+title: "Examples from Chapter 2"
+author: "Miles D. Williams"
+date: '2022-06-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get Packages
+
+```{r}
+library(tidyverse)
+library(socviz)
+```
+
+## The Work We'll Be Doing
+
+Most of what we'll be doing with Healy's book will entail working with a series of datasets. Here's a very small one from the `socviz` liberary:
+
+```{r}
+titanic
+class(titanic)
+```
+
+The `titanic` dataset contains two numeric and two non-numeric columns. So that our dataset provides more explicit information about the variables, we can convert the data frame into a `tibble`:
+
+```{r}
+titanic_tb <- as_tibble(titanic)
+titanic_tb
+```
+
+To see inside objects we can use the `str()` function:
+
+```{r}
+str(titanic_tb)
+```
+
+On occasion, we'll need to read in data, either stored locally in a format such as .csv or a remote file like below:
+
+```{r}
+url <- "https://cdn.rawgit.com/kjhealy/viz-organdata/master/organdonation.csv"
+organs <- read_csv(url)
+```
+
+The message produced when using `read_csv()` (which we use to read in .csv files --- *shocker!*) reports information about the variables and how they've been read in in the console. There are other data types we can read in as well using variations on the `read_[type]` syntax.
+
+## A First Visual
+
+Healy has us use the Gapminder dataset, which is already available in R, to perform our first vizualization:
+
+```{r}
+library(gapminder)
+gapminder
+```
+
+This dataset provides info about several countries over time. Specifically, about life expectancy, population, and GDP per capita.
+
+We can make a scatter plot with some of these variables as follows:
+
+```{r}
+p <- ggplot(data = gapminder) +
+  aes(
+    x = gdpPercap,
+    y = lifeExp
+  )
+p + geom_point()
+```

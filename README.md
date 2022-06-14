@@ -1,2 +1,2 @@
-# data-viz-fall-2022
-Data Visualization
+# Intro to Data Viz (Fall 2022)
+This repo shows examples that I've worked through in Kieran Healy's *Data Visualization: A Practical Introduction*.
