@@ -22,6 +22,7 @@ set_palette <- function(
   }
   if(is.null(diverging)) {
     dive <<- coolors("https://coolors.co/265a73-eff1f3-df2935")
+    if(length(dive)!=3) stop("Diverging palette must have 3 colors! You have: ", length(dive))
   } else {
     dive <<- coolors(diverging)
   }
@@ -29,19 +30,24 @@ set_palette <- function(
     sequ <<- coolors("https://coolors.co/eff1f3-265a73")
   } else {
     sequ <<- coolors(sequential)
+    if(length(sequ)!=2) stop("Sequential palette must have 2 colors! You have: ", length(sequ))
   }
   if(is.null(binary)) {
     dual <<- coolors("https://coolors.co/faa916-265a73")
   } else {
     dual <<- coolors(binary)
+    if(length(dual)!=2) stop("Binary palette must have 2 colors! You have: ", length(dual))
   }
 }
 
 # write a function to add palettes to ggplot
 ggpal <- function(type = "qualitative", aes = "color", midpoint = 0) {
-  if(!(type %in% c("qualitative", "diverging", "sequential", "binary"))) {
+  if(!any(type %in% c("qualitative", "diverging", "sequential", "binary"))) {
     stop("You have not selected an appropriate palette type! Check your spelling!")
   } 
+  if(!any(aes %in% c("color", "fill"))) {
+    stop("You have not selected an appropriate aes! Check your spelling!")
+  }
   if(type == "qualitative" & aes == "color") {
     scale_color_manual(values = qual)
   } else if(type == "qualitative" & aes == "fill") {
@@ -60,7 +66,5 @@ ggpal <- function(type = "qualitative", aes = "color", midpoint = 0) {
     scale_color_manual(values = dual)
   } else if(type == "binary" & aes == "fill") {
     scale_fill_manual(values = binary)
-  } else {
-    stop("Select a valid aes.")
-  }
+  } 
 }
