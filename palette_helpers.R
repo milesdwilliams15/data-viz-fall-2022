@@ -22,9 +22,9 @@ set_palette <- function(
   }
   if(is.null(diverging)) {
     dive <<- coolors("https://coolors.co/265a73-eff1f3-df2935")
-    if(length(dive)!=3) stop("Diverging palette must have 3 colors! You have: ", length(dive))
   } else {
     dive <<- coolors(diverging)
+    if(length(dive)!=3) stop("Diverging palette must have 3 colors! You have: ", length(dive))
   }
   if(is.null(sequential)) {
     sequ <<- coolors("https://coolors.co/eff1f3-265a73")
@@ -42,6 +42,9 @@ set_palette <- function(
 
 # write a function to add palettes to ggplot
 ggpal <- function(type = "qualitative", aes = "color", midpoint = 0) {
+  if(!exists('dive')) {
+    stop("You must use set_palette() before using ggpal().")
+  }
   if(!any(type %in% c("qualitative", "diverging", "sequential", "binary"))) {
     stop("You have not selected an appropriate palette type! Check your spelling!")
   } 
