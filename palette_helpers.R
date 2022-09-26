@@ -4,6 +4,7 @@
 coolors <- function(url) {
   url <- as.character(url)
   col <- stringr::str_remove(url, "https://coolors.co/")
+  col <- stringr::str_remove(col, "palette/")
   col <- unlist(strsplit(col, "-"))
   paste0("#", col)
 } 
