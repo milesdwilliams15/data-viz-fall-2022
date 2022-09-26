@@ -42,10 +42,7 @@ set_palette <- function(
 }
 
 # write a function to add palettes to ggplot
-ggpal <- function(type = "qualitative", 
-                  aes = "color", 
-                  midpoint = 0,
-                  is_continuous_scale = TRUE) {
+ggpal <- function(type = "qualitative", aes = "color", midpoint = 0) {
   if(!exists('dive')) {
     stop("You must use set_palette() before using ggpal().")
   }
@@ -59,25 +56,15 @@ ggpal <- function(type = "qualitative",
     scale_color_manual(values = qual)
   } else if(type == "qualitative" & aes == "fill") {
     scale_fill_manual(values = qual)
-  } else if(type == "diverging" & aes == "color" & is_continuous_scale) {
+  } else if(type == "diverging" & aes == "color") {
     scale_color_gradient2(low = dive[1], mid = dive[2], high = dive[3],
                           midpoint = midpoint)
-  } else if(type == "diverging" & aes == "fill" & is_continuous_scale) {
+  } else if(type == "diverging" & aes == "fill") {
     scale_fill_gradient2(low = dive[1], mid = dive[2], high = dive[3],
                          midpoint = midpoint)
-  } else if(type == "sequential" & aes == "color" & is_continuous_scale) {
+  } else if(type == "sequential" & aes == "color") {
     scale_color_gradient(low = sequ[1], high = sequ[2])
-  } else if(type == "sequential" & aes == "fill" & is_continuous_scale) {
-    scale_fill_gradient(low = sequ[1], high = sequ[2])
-  } else if(type == "diverging" & aes == "color" & !is_continuous_scale) {
-    scale_color_gradient2(low = dive[1], mid = dive[2], high = dive[3],
-                          midpoint = midpoint)
-  } else if(type == "diverging" & aes == "fill" & !is_continuous_scale) {
-    scale_fill_gradient2(low = dive[1], mid = dive[2], high = dive[3],
-                         midpoint = midpoint)
-  } else if(type == "sequential" & aes == "color" & !is_continuous_scale) {
-    scale_color_gradient(low = sequ[1], high = sequ[2])
-  } else if(type == "sequential" & aes == "fill" & !is_continuous_scale) {
+  } else if(type == "sequential" & aes == "fill") {
     scale_fill_gradient(low = sequ[1], high = sequ[2])
   } else if(type == "binary" & aes == "color") {
     scale_color_manual(values = dual)
